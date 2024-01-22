@@ -25,3 +25,14 @@ replay_pid*
 .DS_Store
 .idea/
 .metadata/
+# Eclipse-specific files
+.classpath
+.project
+.settings/
+*.launch
+.metadata/
+bin/
+out/
+*.bak
+*.tmp
+local.properties
