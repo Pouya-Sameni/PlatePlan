@@ -5,4 +5,9 @@
     <fullyQualifiedTypeName name="views.HomeView"/>
     <fullyQualifiedTypeName name="plateplan.Main"/>
     <fullyQualifiedTypeName name="views.SignIn"/>
+    <fullyQualifiedTypeName name="panels.Constants"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
+    <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
+    <fullyQualifiedTypeName name="lombok.RequiredArgsConstructor"/>
 </qualifiedTypeNameHistroy>
