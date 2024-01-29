@@ -17,19 +17,20 @@ public class CustomerSignIn extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField username;
 	private JPasswordField passwordField;
-
+	private static int SIGN_IN_TEXT_FIELD_LENGTH = 250;
+	private static int SIGN_IN_TEXT_FIELD_WIDTH = 55;
 	/**
 	 * Create the panel.
 	 */
 	public CustomerSignIn() {
-		setBackground(new Color(255, 250, 250));
-		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		//========================Setting Default Dimensions========================
 			Dimension windowDim = new Dimension(Constants.WINDOW_MAX_WIDTH, Constants.WINDOW_MAX_HEIGHT);
 			this.setPreferredSize(windowDim);
 			this.setMinimumSize(windowDim);
 			this.setMaximumSize(windowDim);
 			setLayout(null);
+			setBackground(new Color(255, 250, 250));
+			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		//===========================================================================
 			
 			
@@ -40,12 +41,12 @@ public class CustomerSignIn extends JPanel {
 			add(welcomeLabel);
 			
 			username = new JTextField();
-			username.setBounds(425, 200, Constants.TEXT_FIELD_LENGTH, Constants.TEXT_FIELD_WIDTH);
+			username.setBounds(425, 200, SIGN_IN_TEXT_FIELD_LENGTH, SIGN_IN_TEXT_FIELD_WIDTH);
 			add(username);
 			username.setColumns(10);
 			
 			passwordField = new JPasswordField();
-			passwordField.setBounds(425, 301, Constants.TEXT_FIELD_LENGTH, Constants.TEXT_FIELD_WIDTH);
+			passwordField.setBounds(425, 301, SIGN_IN_TEXT_FIELD_LENGTH, SIGN_IN_TEXT_FIELD_WIDTH);
 			add(passwordField);
 			
 			JLabel lblUser = new JLabel("Username");
