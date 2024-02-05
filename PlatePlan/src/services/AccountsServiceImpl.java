@@ -8,11 +8,11 @@ import misc.SQLTables;
 
 
 
-public class AccountsService {
+public class AccountsServiceImpl {
 	DataBase db;
 	
 	
-	public AccountsService ()
+	public AccountsServiceImpl ()
 	{
 		this.db =  DataBase.getInstance();
 	}

@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 import panels.Constants;
 import panels.InitialView;
-import services.AccountsService;
+import services.AccountsServiceImpl;
 import services.DataBase;
 
 public class PlatePlanMain {
@@ -18,7 +18,7 @@ public class PlatePlanMain {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		AccountsService accountsService = new AccountsService();
+		AccountsServiceImpl accountsService = new AccountsServiceImpl();
 		accountsService.registerAccount("test", "test", "test", "test");
 		DataBase db = DataBase.getInstance();
 		EventQueue.invokeLater(new Runnable() {
