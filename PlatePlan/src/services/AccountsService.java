@@ -18,15 +18,16 @@ public class AccountsService {
 	}
 
 	public Customer registerAccount(String firstName, String lastName, String email, String password) {
-		//TODO: Check if the account exists
 		
-		Customer customer = new Customer (firstName, lastName, email, password);
-		customer.setReservations(new ArrayList<>());
+		Customer customer = new Customer (firstName, lastName, email, password, new ArrayList<>());
 		
 
-		//TODO: Add Customer to database
+		//TODO: Add Customer to database if an error is returned then return null or throw an exception. Duplicates are checked by the 
+		//SQL database
 		db.insertRecord(SQLTables.ACCOUNTS_TABLE, customer.genSQLValue());
 		
 		return null;
 	}
 }
+
+
