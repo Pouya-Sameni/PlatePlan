@@ -1,4 +1,4 @@
-package services;
+package service_interfaces;
 
 import dto.Customer;
 import dto.Reservation;
@@ -9,7 +9,9 @@ public interface AccountService {
 	
 	public Customer login (String email, String password);
 	
-	public Customer reserveSpot (Reservation reservation);
+	public Customer getAccountDetails (String email);
+	
+	public void addReservationToAccount (Reservation reservation, String email);
 	
 
 }

@@ -5,10 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import database.DataBaseImpl;
 import panels.Constants;
 import panels.InitialView;
 import services.AccountsServiceImpl;
-import services.DataBase;
 
 public class PlatePlanMain {
 
@@ -20,7 +20,7 @@ public class PlatePlanMain {
 	public static void main(String[] args) {
 		AccountsServiceImpl accountsService = new AccountsServiceImpl();
 		accountsService.registerAccount("test", "test", "test", "test");
-		DataBase db = DataBase.getInstance();
+		DataBaseImpl db = DataBaseImpl.getInstance();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

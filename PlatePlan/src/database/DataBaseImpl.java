@@ -1,4 +1,4 @@
-package services;
+package database;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -10,24 +10,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import misc.SQLTables;
+import dto.Customer;
+import dto.Reservation;
 
-public class DataBase {
+public class DataBaseImpl implements DataBase {
 
-	private static DataBase dataBaseInstance;
+	private static DataBaseImpl dataBaseInstance;
 	private static final String URL = "jdbc:postgresql://localhost:5432/PlatePlan";
 	private static final String USERNAME = "postgres";
 	private static final String PASSWORD = "admin";
 
-	private DataBase() {
+	private DataBaseImpl() {
 		establishConnection();
-		getColumns(SQLTables.ACCOUNTS_TABLE);
 
 	}
 
-	public static synchronized DataBase getInstance() {
+	public static synchronized DataBaseImpl getInstance() {
 		if (dataBaseInstance == null) {
-			dataBaseInstance = new DataBase();
+			dataBaseInstance = new DataBaseImpl();
 		}
 		return dataBaseInstance;
 	}
@@ -93,6 +93,18 @@ public class DataBase {
 		System.out.println(columns.toString());
 
 		return columns.toString();
+	}
+
+	@Override
+	public Customer getCustomerAccount(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reservation> getCustomerReservations(String email) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

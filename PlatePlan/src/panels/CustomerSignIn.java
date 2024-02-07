@@ -8,7 +8,10 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import dto.Customer;
 import main.PlatePlanMain;
+import service_interfaces.AccountService;
+import services.AccountsServiceImpl;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -22,8 +25,6 @@ public class CustomerSignIn extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField username;
 	private JPasswordField passwordField;
-	private static int SIGN_IN_TEXT_FIELD_LENGTH = 250;
-	private static int SIGN_IN_TEXT_FIELD_WIDTH = 55;
 	private JLabel lblUser;
 	private JLabel lblPass;
 	private JButton btnSignIn;
@@ -67,6 +68,11 @@ public class CustomerSignIn extends JPanel {
 			add(lblPass);
 			
 			btnSignIn = new JButton("Sign In");
+			btnSignIn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					SignInCustomer();
+				}
+			});
 			btnSignIn.setBounds(491, 394, 117, 29);
 			add(btnSignIn);
 			
@@ -85,5 +91,20 @@ public class CustomerSignIn extends JPanel {
 			btnRegister.setBounds(400, 470, 300, 29);
 			add(btnRegister);
 			
+	}
+	
+	private void SignInCustomer ()
+	{
+		AccountService accountService = new AccountsServiceImpl();
+		
+		String pass = String.valueOf(passwordField.getPassword());
+		Customer customer = accountService.login(username.getText(), pass);
+		
+		if (customer != null)
+		{
+			PlatePlanMain.switchPanels(new CustomerHomeView());
+		}
+		
+		
 	}
 }
