@@ -66,5 +66,17 @@ public class PlatePlanMain {
 			e.printStackTrace();
 		}
     }
+	public static void refreshPage ()
+    {
+        try {
+        	JPanel contentPane = (JPanel) frame.getContentPane();
+        	contentPane.revalidate(); 
+        	contentPane.repaint();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 
 }

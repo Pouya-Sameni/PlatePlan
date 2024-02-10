@@ -29,6 +29,8 @@ public class CustomerSignIn extends JPanel {
 	private JLabel lblPass;
 	private JButton btnSignIn;
 	private JButton btnRegister;
+	private JLabel signInErrorLbl;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -47,7 +49,7 @@ public class CustomerSignIn extends JPanel {
 			JLabel welcomeLabel = new JLabel("Welcome To Alfredos");
 			welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 26));
-			welcomeLabel.setBounds(417, 36, 266, 127);
+			welcomeLabel.setBounds(417, 26, 266, 62);
 			add(welcomeLabel);
 			
 			username = new JTextField();
@@ -91,18 +93,42 @@ public class CustomerSignIn extends JPanel {
 			btnRegister.setBounds(400, 470, 300, 29);
 			add(btnRegister);
 			
+			JButton btnBackToInitialView = new JButton("Back");
+			btnBackToInitialView.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					PlatePlanMain.switchPanels(new InitialView());
+				}
+			});
+			btnBackToInitialView.setBounds(10, 11, 89, 23);
+			add(btnBackToInitialView);
+			
+			signInErrorLbl = new JLabel("Inccorrect Email or Password. Please Try Again!");
+			signInErrorLbl.setHorizontalAlignment(SwingConstants.CENTER);
+			signInErrorLbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			signInErrorLbl.setForeground(Color.RED);
+			signInErrorLbl.setBounds(372, 118, 356, 30);
+			
+			
+
+			
+			
 	}
 	
 	private void SignInCustomer ()
 	{
+		remove(signInErrorLbl);
 		AccountService accountService = new AccountsServiceImpl();
 		
 		String pass = String.valueOf(passwordField.getPassword());
-		Customer customer = accountService.login(username.getText(), pass);
+		Customer customer = accountService.customerLogin(username.getText(), pass);
 		
+
 		if (customer != null)
 		{
 			PlatePlanMain.switchPanels(new CustomerHomeView());
+		}else {
+			add(signInErrorLbl);
+			PlatePlanMain.refreshPage();
 		}
 		
 		

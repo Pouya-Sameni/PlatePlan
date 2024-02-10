@@ -8,7 +8,11 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import dto.Business;
+import dto.Customer;
 import main.PlatePlanMain;
+import service_interfaces.AccountService;
+import services.AccountsServiceImpl;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -22,6 +26,7 @@ public class BusinessSignIn extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField username;
 	private JPasswordField passwordField;
+	private JLabel signInErrorLbl;
 
 	/**
 	 * Create the panel.
@@ -41,7 +46,7 @@ public class BusinessSignIn extends JPanel {
 			JLabel welcomeLabel = new JLabel("Sign In");
 			welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 26));
-			welcomeLabel.setBounds(417, 36, 266, 127);
+			welcomeLabel.setBounds(417, 36, 266, 75);
 			add(welcomeLabel);
 			
 			username = new JTextField();
@@ -64,11 +69,46 @@ public class BusinessSignIn extends JPanel {
 			JButton btnSignIn = new JButton("Sign In");
 			btnSignIn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					businessSignIn();
 				}
 			});
 			btnSignIn.setBounds(491, 394, 117, 29);
 			add(btnSignIn);
-
 			
+			JButton btnBackToInitialView = new JButton("Back");
+			btnBackToInitialView.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					PlatePlanMain.switchPanels(new InitialView());
+				}
+			});
+			btnBackToInitialView.setBounds(10, 11, 89, 23);
+			add(btnBackToInitialView);
+			
+			signInErrorLbl = new JLabel("Inccorrect Email or Password. Please Try Again!");
+			signInErrorLbl.setHorizontalAlignment(SwingConstants.CENTER);
+			signInErrorLbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			signInErrorLbl.setForeground(Color.RED);
+			signInErrorLbl.setBounds(372, 118, 356, 30);
+			
+	}
+	
+	private void businessSignIn()
+	{
+		remove(signInErrorLbl);
+		AccountService accountService = new AccountsServiceImpl();
+		
+		String pass = String.valueOf(passwordField.getPassword());
+		Business business = accountService.businessLogin(username.getText(), pass);
+		
+
+		if (business != null)
+		{
+			PlatePlanMain.switchPanels(new BusinessHomeView());
+		}else {
+			add(signInErrorLbl);
+			PlatePlanMain.refreshPage();
+		}
+		
+		
 	}
 }
