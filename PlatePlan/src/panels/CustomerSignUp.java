@@ -55,6 +55,7 @@ public class CustomerSignUp extends JPanel {
 			lblSignUp.setFont(new Font("Arial", Font.PLAIN, 26));
 			lblSignUp.setBounds(329, 36, 441, 127);
 			add(lblSignUp);
+			int x = 0;
 			
 			
 			txtFirstName = new JTextField();
