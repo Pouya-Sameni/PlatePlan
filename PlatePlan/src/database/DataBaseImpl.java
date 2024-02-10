@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.Business;
 import dto.Customer;
 import dto.Reservation;
 
@@ -105,6 +106,18 @@ public class DataBaseImpl implements DataBase {
 	public List<Reservation> getCustomerReservations(String email) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Business getBusinessAccount() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean registerCustomer(Customer object) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

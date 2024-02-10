@@ -7,7 +7,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
-public class CustomerHomeView extends JPanel {
+public class BusinessHomeView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblNewLabel;
@@ -15,7 +15,7 @@ public class CustomerHomeView extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CustomerHomeView() {
+	public BusinessHomeView() {
 		//========================Setting Default Dimensions========================
 		Dimension windowDim = new Dimension(Constants.WINDOW_MAX_WIDTH, Constants.WINDOW_MAX_HEIGHT);
 		this.setPreferredSize(windowDim);
@@ -25,7 +25,7 @@ public class CustomerHomeView extends JPanel {
 		setBackground(new Color(255, 250, 250));
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		
-		lblNewLabel = new JLabel("Customer HOME VIEW");
+		lblNewLabel = new JLabel("Business HOME VIEW");
 		lblNewLabel.setBounds(481, 342, 138, 16);
 		add(lblNewLabel);
 	//===========================================================================

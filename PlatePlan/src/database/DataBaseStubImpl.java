@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.security.auth.login.AccountNotFoundException;
 
+import dto.Business;
 import dto.Customer;
 import dto.Reservation;
 import misc.StubDataBaseRecords;
@@ -26,12 +27,6 @@ public class DataBaseStubImpl implements DataBase {
 	}
 
 	
-	
-	@Override
-	public boolean insertRecord(String tableName, String values) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public Customer getCustomerAccount(String email) throws AccountNotFoundException {
@@ -56,6 +51,20 @@ public class DataBaseStubImpl implements DataBase {
 			return customer.getReservations();
 		}
 		throw new AccountNotFoundException("No customer with the given email" + email);
+	}
+
+	@Override
+	public Business getBusinessAccount() {
+		return StubDataBaseRecords.business;
+	}
+
+	@Override
+	public boolean registerCustomer(Customer object) {
+		for (Customer customer: StubDataBaseRecords.customers)
+		{
+			
+		}
+		return false;
 	}
 
 }
