@@ -117,62 +117,62 @@ public class Menu extends JPanel{
 			
 			
 			
-			JLabel appetizerPrice1 = new JLabel("$21.99");
+			JLabel appetizerPrice1 = new JLabel("$22");
 			appetizerPrice1.setForeground(Color.RED);
 			appetizerPrice1.setBounds(135, 61, 132, 16);
 			add(appetizerPrice1);
 			
-			JLabel appetizerPrice2 = new JLabel("$18.99");
+			JLabel appetizerPrice2 = new JLabel("$19");
 			appetizerPrice2.setForeground(Color.RED);
 			appetizerPrice2.setBounds(135, 89, 61, 16);
 			add(appetizerPrice2);
 			
-			JLabel appetizerPrice3 = new JLabel("$19.99");
+			JLabel appetizerPrice3 = new JLabel("$20");
 			appetizerPrice3.setForeground(Color.RED);
 			appetizerPrice3.setBounds(135, 116, 61, 16);
 			add(appetizerPrice3);
 			
-			JLabel mainPrice1 = new JLabel("$27.99");
+			JLabel mainPrice1 = new JLabel("$28");
 			mainPrice1.setForeground(Color.RED);
 			mainPrice1.setBounds(135, 237, 61, 16);
 			add(mainPrice1);
 			
-			JLabel mainPrice2 = new JLabel("$29.99");
+			JLabel mainPrice2 = new JLabel("$30");
 			mainPrice2.setForeground(Color.RED);
 			mainPrice2.setBounds(135, 262, 61, 16);
 			add(mainPrice2);
 			
-			JLabel mainPrice3 = new JLabel("$26.99");
+			JLabel mainPrice3 = new JLabel("$27");
 			mainPrice3.setForeground(Color.RED);
 			mainPrice3.setBounds(135, 287, 61, 16);
 			add(mainPrice3);
 			
-			JLabel dessertPrice1 = new JLabel("$19.99");
+			JLabel dessertPrice1 = new JLabel("$20");
 			dessertPrice1.setForeground(Color.RED);
 			dessertPrice1.setBounds(151, 442, 61, 16);
 			add(dessertPrice1);
 			
-			JLabel dessertPrice2 = new JLabel("$15.99");
+			JLabel dessertPrice2 = new JLabel("$16");
 			dessertPrice2.setForeground(Color.RED);
 			dessertPrice2.setBounds(151, 418, 61, 16);
 			add(dessertPrice2);
 			
-			JLabel dessertPrice3 = new JLabel("$14.99");
+			JLabel dessertPrice3 = new JLabel("$15");
 			dessertPrice3.setForeground(Color.RED);
 			dessertPrice3.setBounds(151, 393, 61, 16);
 			add(dessertPrice3);
 			
-			JLabel beveragePrice1 = new JLabel("$2.99");
+			JLabel beveragePrice1 = new JLabel("$3");
 			beveragePrice1.setForeground(Color.RED);
 			beveragePrice1.setBounds(114, 532, 61, 16);
 			add(beveragePrice1);
 			
-			JLabel beveragePrice2 = new JLabel("$3.99");
+			JLabel beveragePrice2 = new JLabel("$4");
 			beveragePrice2.setForeground(Color.RED);
 			beveragePrice2.setBounds(114, 560, 61, 16);
 			add(beveragePrice2);
 			
-			JLabel beveragePrice3 = new JLabel("$3.99");
+			JLabel beveragePrice3 = new JLabel("$4");
 			beveragePrice3.setForeground(Color.RED);
 			beveragePrice3.setBounds(114, 588, 61, 16);
 			add(beveragePrice3);
@@ -412,21 +412,24 @@ public class Menu extends JPanel{
 		DLM.addElement(s);
 		list.setModel(DLM);
 		totalCost += p;
-		totalCostPrice.setText("Total: " + String.valueOf(totalCost));
+		double roundOff = Math.round(totalCost);
+		totalCostPrice.setText("Total: " + String.valueOf(roundOff));
 		System.out.println(totalCost);
 		
 		
 	}
 	
 	public void remove(JLabel label, DefaultListModel DLM, JList list, JLabel price, JLabel totalCostPrice) {
-		
-		String s = label.getText();
-		String pri = price.getText();
-		double p = Double.valueOf(pri.substring(1));
-		DLM.removeElement(s);
-		list.setModel(DLM);
-		totalCost -= p;
-		totalCostPrice.setText("Total: " + String.valueOf(totalCost));
-		System.out.println(totalCost);
+		if(DLM.contains(label.getText())) {
+			String s = label.getText();
+			String pri = price.getText();
+			double p = Double.valueOf(pri.substring(1));
+			DLM.removeElement(s);
+			list.setModel(DLM);
+			totalCost -= p;
+			double roundOff = Math.round(totalCost);
+			totalCostPrice.setText("Total: " + String.valueOf(roundOff));
+			System.out.println(totalCost);
+		}
 	}
 }

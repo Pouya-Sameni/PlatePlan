@@ -102,7 +102,7 @@ public class CustomerSignIn extends JPanel {
 		
 		if (customer != null)
 		{
-			PlatePlanMain.switchPanels(new Menu());
+			PlatePlanMain.switchPanels(new CustomerHomeView());
 		}
 		
 		
