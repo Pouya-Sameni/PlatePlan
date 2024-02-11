@@ -5,7 +5,14 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
+
+import main.PlatePlanMain;
+
 import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class BusinessHomeView extends JPanel {
 
@@ -16,6 +23,7 @@ public class BusinessHomeView extends JPanel {
 	 * Create the panel.
 	 */
 	public BusinessHomeView() {
+		setFont(new Font("Calibri", Font.PLAIN, 18));
 		//========================Setting Default Dimensions========================
 		Dimension windowDim = new Dimension(Constants.WINDOW_MAX_WIDTH, Constants.WINDOW_MAX_HEIGHT);
 		this.setPreferredSize(windowDim);
@@ -24,10 +32,21 @@ public class BusinessHomeView extends JPanel {
 		setLayout(null);
 		setBackground(new Color(255, 250, 250));
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		
-		lblNewLabel = new JLabel("Business HOME VIEW");
-		lblNewLabel.setBounds(481, 342, 138, 16);
-		add(lblNewLabel);
 	//===========================================================================
+		lblNewLabel = new JLabel("BUSINESS MANAGEMENT");
+		lblNewLabel.setFont(new Font("Calibri", Font.PLAIN, 22));
+		lblNewLabel.setLabelFor(this);
+		lblNewLabel.setBounds(429, 105, 370, 28);
+		add(lblNewLabel);
+		
+		//Button to open another panel(reservationHomeView)
+		JButton btnNewButton = new JButton("View & Manage Reservations");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PlatePlanMain.switchPanels(new reservationHomeView());
+			}
+		});
+		btnNewButton.setBounds(429, 144, 231, 23);
+		add(btnNewButton);
 	}
 }
