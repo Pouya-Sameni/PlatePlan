@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -19,12 +20,16 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.table.TableRowSorter;
 
 public class BusinessTableManageView extends JPanel{
 	private JTextField textID;
 	private JTextField textCapacity;
 	private DefaultTableModel model;
 	private JTable table;
+	private JTextField textSearch;
 	public BusinessTableManageView() {
 		//========================Setting Default Dimensions========================
 		Dimension windowDim = new Dimension(Constants.WINDOW_MAX_WIDTH, Constants.WINDOW_MAX_HEIGHT);
@@ -142,6 +147,26 @@ public class BusinessTableManageView extends JPanel{
 			table.getColumnModel().getColumn(0).setPreferredWidth(15);
 			table.setBackground(new Color(255, 255, 255));
 			scrollPane.setViewportView(table);
+			
+			textSearch = new JTextField();
+			textSearch.setToolTipText("");
+			textSearch.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					TableRowSorter<DefaultTableModel> model1 = new TableRowSorter<>(model);
+					table.setRowSorter(model1);
+					model1.setRowFilter(RowFilter.regexFilter(textSearch.getText()));
+				}
+			});
+			textSearch.setColumns(10);
+			textSearch.setBounds(143, 35, 168, 20);
+			add(textSearch);
+			
+			JLabel lblSearch = new JLabel("Search:");
+			lblSearch.setBounds(87, 38, 46, 14);
+			add(lblSearch);
+			
 			
 	}
 }
