@@ -33,4 +33,10 @@ public class Server {
 		this.lastName = lastName;
 	}
 	 
+	// Auto-generates a UUID in case non is given, only first and last name
+	public Server(String firstName,String lastName) {
+		this.id = UUID.randomUUID();
+		this.firstName = firstName;
+		this.lastName = lastName;	
+	}
 }

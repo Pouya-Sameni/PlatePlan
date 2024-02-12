@@ -35,4 +35,9 @@ public class Table {
 		this.server = server;
 	}
 	
+	public Table(int capacity, Server server) {
+		this.id = UUID.randomUUID();
+		this.capacity = capacity;
+		this.server = server;
+	}
 }
