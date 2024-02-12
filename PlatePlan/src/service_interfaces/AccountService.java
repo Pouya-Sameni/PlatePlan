@@ -17,4 +17,7 @@ public interface AccountService {
 	public void addReservationToAccount (Reservation reservation, String email);
 	
 
+    
+    
+    void addReservationToAccount(Reservation reservation, String email);
 }

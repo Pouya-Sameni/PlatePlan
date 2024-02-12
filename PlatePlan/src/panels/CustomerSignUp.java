@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class CustomerSignUp extends JPanel {
-
+	private PlatePlanMain mainApp;
 	private static final long serialVersionUID = 1L;
 	private JTextField username;
 	private JPasswordField passwordField;
@@ -38,7 +38,8 @@ public class CustomerSignUp extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CustomerSignUp() {
+	public CustomerSignUp(PlatePlanMain mainApp) {
+		this.mainApp = mainApp;
 		//========================Setting Default Dimensions========================
 			Dimension windowDim = new Dimension(Constants.WINDOW_MAX_WIDTH, Constants.WINDOW_MAX_HEIGHT);
 			this.setPreferredSize(windowDim);
@@ -106,9 +107,9 @@ public class CustomerSignUp extends JPanel {
 			
 			btnSignInLink = new JButton("Back To Sign In");
 			btnSignInLink.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					PlatePlanMain.switchPanels(new CustomerSignIn());
-				}
+			    public void actionPerformed(ActionEvent e) {
+			        mainApp.switchPanels(new CustomerSignIn(mainApp));
+			    }
 			});
 			btnSignInLink.setBounds(471, 509, 158, 23);
 			add(btnSignInLink);
