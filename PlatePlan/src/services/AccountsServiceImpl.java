@@ -1,7 +1,5 @@
 package services;
-
 import java.util.ArrayList;
-import java.util.UUID;
 
 import javax.security.auth.login.AccountNotFoundException;
 
@@ -13,21 +11,10 @@ import database.SQLTables;
 import dto.Business;
 import dto.Customer;
 import dto.Reservation;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
 import service_interfaces.AccountService;
 
-
-
-
 public class AccountsServiceImpl implements AccountService {
-	DataBase db;
-	
-	
-	public AccountsServiceImpl ()
-	{
-		this.db =  DataBaseFactory.getDatabase();
-	}
+    DataBase db;
 
 	public Customer registerAccount(String firstName, String lastName, String email, String password) {
 		
@@ -53,14 +40,12 @@ public class AccountsServiceImpl implements AccountService {
 
 	@Override
 	public Customer getCustomerAccountDetails(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addReservationToAccount(Reservation reservation, String email) {
-		// TODO Auto-generated method stub
-		
+		try {
+            return db.getCustomerAccount(email);
+        } catch (Exception e) {
+            System.out.println("Account with email " + email + " does not exist");
+        }
+        return null;
 	}
 
 	@Override
@@ -79,6 +64,16 @@ public class AccountsServiceImpl implements AccountService {
 	}
 
 
+
+
+    @Override
+    public void addReservationToAccount(Reservation reservation, String email) {
+        try {
+            Customer customer = db.getCustomerAccount(email);
+            customer.addReservation(reservation);
+            db.updateRecord(SQLTables.ACCOUNTS_TABLE, customer.genSQLValue(), "email", email);
+        } catch (Exception e) {
+            System.out.println("Error adding reservation to account: " + e.getMessage());
+        }
+    }
 }
-
-

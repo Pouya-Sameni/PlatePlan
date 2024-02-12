@@ -6,9 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.security.auth.login.AccountNotFoundException;
 
 import dto.Business;
 import dto.Customer;
@@ -16,97 +17,113 @@ import dto.Reservation;
 
 public class DataBaseImpl implements DataBase {
 
-	private static DataBaseImpl dataBaseInstance;
-	private static final String URL = "jdbc:postgresql://localhost:5432/PlatePlan";
-	private static final String USERNAME = "postgres";
-	private static final String PASSWORD = "admin";
+    private static DataBaseImpl dataBaseInstance;
+    private static final String URL = "jdbc:postgresql://localhost:5432/PlatePlan";
+    private static final String USERNAME = "postgres";
+    private static final String PASSWORD = "admin";
 
-	private DataBaseImpl() {
-		establishConnection();
+    private DataBaseImpl() {
+        establishConnection();
+    }
 
-	}
+    public static synchronized DataBaseImpl getInstance() {
+        if (dataBaseInstance == null) {
+            dataBaseInstance = new DataBaseImpl();
+        }
+        return dataBaseInstance;
+    }
 
-	public static synchronized DataBaseImpl getInstance() {
-		if (dataBaseInstance == null) {
-			dataBaseInstance = new DataBaseImpl();
-		}
-		return dataBaseInstance;
-	}
+    private Connection establishConnection() {
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            System.out.println("Connected to the PostgreSQL server successfully.");
+            return connection;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-	private Connection establishConnection() {
+    @Override
+    public boolean insertRecord(String tableName, String values) {
+        try {
+            Connection conn = establishConnection();
+            String insertCommand = String.format("INSERT INTO %s %s VALUES %s", tableName, getColumns(tableName),
+                    values);
+            System.out.println(insertCommand);
+            PreparedStatement pstmt = conn.prepareStatement(insertCommand);
 
-		try {
-			Class.forName("org.postgresql.Driver");
-			Connection connection= DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			System.out.println("Connected to the PostgreSQL server successfully.");
-			return connection;
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("A new record was inserted successfully.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return true;
+    }
 
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+    private String getColumns(String tableName) {
+        StringBuilder columns = new StringBuilder();
 
-		return null;
-	}
+        List<String> columnList = new ArrayList<>();
 
-	public boolean insertRecord(String tableName, String values) {
+        try (Connection conn = establishConnection()) {
+            if (conn != null) {
+                DatabaseMetaData meta = conn.getMetaData();
+                ResultSet resultSet = meta.getColumns(null, null, tableName, null);
+                while (resultSet.next()) {
+                    String columnName = resultSet.getString("COLUMN_NAME");
+                    columnList.add(columnName);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
-		try {
-			Connection conn = this.establishConnection();
-			String insertCommand = String.format("INSERT INTO %s %s VALUES %s", tableName, getColumns(tableName),
-					values);
-			System.out.println (insertCommand);
-			PreparedStatement pstmt = conn.prepareStatement(insertCommand);
+        columns.append("(");
+        columns.append(String.join(",", columnList));
+        columns.append(")");
+        System.out.println(columns.toString());
 
-			int affectedRows = pstmt.executeUpdate();
-			if (affectedRows > 0) {
-				System.out.println("A new record was inserted successfully.");
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return true;
-	}
+        return columns.toString();
+    }
 
-	private String getColumns(String tableName) {
-		StringBuilder columns = new StringBuilder();
+    @Override
+    public Customer getCustomerAccount(String email) throws AccountNotFoundException {
+        // Implement this method to retrieve customer details from the database
+        // You can use SQL queries to fetch customer information based on the email
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 
-		List<String> columnList = new ArrayList<>();
+    @Override
+    public List<Reservation> getCustomerReservations(String email) throws AccountNotFoundException {
+        // Implement this method to retrieve reservations for a customer from the database
+        // You can use SQL queries to fetch reservations based on the customer's email
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 
-		try (Connection conn = establishConnection()) {
-			if (conn != null) {
-				DatabaseMetaData meta = conn.getMetaData();
-				ResultSet resultSet = meta.getColumns(null, null, tableName, null);
-				while (resultSet.next()) {
-					String columnName = resultSet.getString("COLUMN_NAME");
-					columnList.add(columnName);
-				}
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+    @Override
+    public void updateRecord(String tableName, String updatedValues, String conditionColumn, String conditionValue) {
+        try {
+            Connection conn = establishConnection();
+            String updateCommand = String.format("UPDATE %s SET %s WHERE %s='%s'", tableName, updatedValues, conditionColumn, conditionValue);
+            System.out.println(updateCommand);
+            PreparedStatement pstmt = conn.prepareStatement(updateCommand);
 
-		columns.append("(");
-		columns.append(String.join(",", columnList));
-		columns.append(")");
-		System.out.println(columns.toString());
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Record updated successfully.");
+            } else {
+                System.out.println("No records were updated.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-		return columns.toString();
-	}
 
-	@Override
-	public Customer getCustomerAccount(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Reservation> getCustomerReservations(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Business getBusinessAccount() {

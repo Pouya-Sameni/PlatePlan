@@ -12,11 +12,13 @@ public interface DataBase {
 	
 	public boolean registerCustomer(Customer object);
 		
-	public Customer getCustomerAccount (String email) throws AccountNotFoundException;
-	
 	public Business getBusinessAccount ();
 
-	public List<Reservation> getCustomerReservations (String email) throws AccountNotFoundException;
-	
+    public boolean insertRecord(String tableName, String values);
 
+    public Customer getCustomerAccount(String email) throws AccountNotFoundException;
+
+    public List<Reservation> getCustomerReservations(String email) throws AccountNotFoundException;
+
+    public void updateRecord(String tableName, String updatedValues, String conditionColumn, String conditionValue);
 }

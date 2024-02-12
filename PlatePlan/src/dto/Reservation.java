@@ -12,9 +12,9 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 public class Reservation {
 
 	@NonNull @Getter @Setter
@@ -38,3 +38,7 @@ public class Reservation {
 	}
 
 }
+
+
+
+
