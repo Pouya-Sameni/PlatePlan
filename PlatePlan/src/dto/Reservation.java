@@ -4,32 +4,23 @@
 package dto;
 
 import java.time.LocalDateTime;
-
-
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.ToString;
 
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 public class Reservation {
-
-	@NonNull
-	private String customerId;
-	@NonNull
-	private LocalDateTime  reservationTime;
-	
-	private String specialNotes;
-	
-	private Server server;
-	//hi
-	private Table table;
-
-	
-	
-
-
-
+    @NonNull
+    private String customerId;
+    @NonNull
+    private LocalDateTime reservationTime;
+    @NonNull
+    private int numberOfSeats; // Added field for the number of seats.
 }
+
+
+
+
