@@ -7,13 +7,14 @@ import javax.swing.JPanel;
 import database.DataBaseImpl;
 import panels.Constants;
 import panels.CustomerSignIn;
+import panels.InitialView;
 import panels.ReservationPanel;
 import services.AccountsServiceImpl;
 import dto.Customer; // Import the Customer class
 
 public class PlatePlanMain {
 
-    private JFrame frame;
+    private static JFrame frame;
 
     /**
      * Launch the application.

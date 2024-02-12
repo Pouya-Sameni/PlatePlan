@@ -40,14 +40,12 @@ public class AccountsServiceImpl implements AccountService {
 
 	@Override
 	public Customer getCustomerAccountDetails(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addReservationToAccount(Reservation reservation, String email) {
-		// TODO Auto-generated method stub
-		
+		try {
+            return db.getCustomerAccount(email);
+        } catch (Exception e) {
+            System.out.println("Account with email " + email + " does not exist");
+        }
+        return null;
 	}
 
 	@Override
@@ -67,16 +65,6 @@ public class AccountsServiceImpl implements AccountService {
 
 
 
-
-    @Override
-    public Customer getAccountDetails(String email) {
-        try {
-            return db.getCustomerAccount(email);
-        } catch (Exception e) {
-            System.out.println("Account with email " + email + " does not exist");
-        }
-        return null;
-    }
 
     @Override
     public void addReservationToAccount(Reservation reservation, String email) {

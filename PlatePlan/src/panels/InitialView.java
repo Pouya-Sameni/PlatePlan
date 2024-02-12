@@ -13,15 +13,13 @@ import java.awt.Font;
 public class InitialView extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private PlatePlanMain mainApp;
     private JButton customerView;
     private JButton btnBusinessLogin;
 
     /**
      * Create the panel.
      */
-    public InitialView(PlatePlanMain mainApp) {
-        this.mainApp = mainApp;
+    public InitialView() {
 
         // Setting Default Dimensions
         Dimension windowDim = new Dimension(Constants.WINDOW_MAX_WIDTH, Constants.WINDOW_MAX_HEIGHT);
@@ -38,7 +36,7 @@ public class InitialView extends JPanel {
         customerView.setFont(new Font("Monotype Corsiva", Font.ITALIC, 25));
         customerView.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                mainApp.switchPanels(new CustomerSignIn(mainApp));
+                PlatePlanMain.switchPanels(new CustomerSignIn());
             }
         });
         customerView.setBorderPainted(false);
@@ -48,7 +46,7 @@ public class InitialView extends JPanel {
         btnBusinessLogin = new JButton("Business Login");
         btnBusinessLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                mainApp.switchPanels(new BusinessSignIn());
+                PlatePlanMain.switchPanels(new BusinessSignIn());
             }
         });
         btnBusinessLogin.setBounds(938, 30, 133, 39);

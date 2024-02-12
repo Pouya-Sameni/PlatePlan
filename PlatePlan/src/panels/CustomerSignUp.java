@@ -18,7 +18,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class CustomerSignUp extends JPanel {
-	private PlatePlanMain mainApp;
 	private static final long serialVersionUID = 1L;
 	private JTextField username;
 	private JPasswordField passwordField;

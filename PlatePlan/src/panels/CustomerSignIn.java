@@ -33,13 +33,11 @@ public class CustomerSignIn extends JPanel {
     private JButton btnRegister;
 
     // Added reference to PlatePlanMain
-    private PlatePlanMain mainApp;
 
     /**
      * Create the panel.
      */
-    public CustomerSignIn(PlatePlanMain mainApp) {
-        this.mainApp = mainApp; // Initialize mainApp
+    public CustomerSignIn() {
 
         //========================Setting Default Dimensions========================
         Dimension windowDim = new Dimension(Constants.WINDOW_MAX_WIDTH, Constants.WINDOW_MAX_HEIGHT);
@@ -86,7 +84,7 @@ public class CustomerSignIn extends JPanel {
         btnRegister = new JButton("Don't have an account? Register Now!");
         btnRegister.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                mainApp.switchPanels(new CustomerSignUp(mainApp));
+                PlatePlanMain.switchPanels(new CustomerSignUp());
             }
         });
         btnRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -104,10 +102,10 @@ public class CustomerSignIn extends JPanel {
 
         String pass = String.valueOf(passwordField.getPassword());
         String email = username.getText(); // Use email instead of the whole customer object
-        Customer customer = accountService.login(email, pass);
+        Customer customer = accountService.customerLogin(email, pass);
 
         if (customer != null) {
-            mainApp.onCustomerSignedIn(email); // Pass email to the mainApp
+        	PlatePlanMain.switchPanels(new CustomerHomeView(customer));
         } else {
             JOptionPane.showMessageDialog(this, "Login failed. Please check your username and password.", "Login Error", JOptionPane.ERROR_MESSAGE);
         }

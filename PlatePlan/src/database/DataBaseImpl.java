@@ -124,17 +124,6 @@ public class DataBaseImpl implements DataBase {
     }
 
 
-	@Override
-	public Customer getCustomerAccount(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Reservation> getCustomerReservations(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Business getBusinessAccount() {
