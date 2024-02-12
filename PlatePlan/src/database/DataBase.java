@@ -4,10 +4,15 @@ import java.util.List;
 
 import javax.security.auth.login.AccountNotFoundException;
 
+import dto.Business;
 import dto.Customer;
 import dto.Reservation;
 
 public interface DataBase {
+	
+	public boolean registerCustomer(Customer object);
+		
+	public Business getBusinessAccount ();
 
     public boolean insertRecord(String tableName, String values);
 

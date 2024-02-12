@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.security.auth.login.AccountNotFoundException;
 
+import dto.Business;
 import dto.Customer;
 import dto.Reservation;
 import misc.StubDataBaseRecords;
@@ -61,4 +62,18 @@ public class DataBaseStubImpl implements DataBase {
         // (in a real database, you would execute SQL update statements)
         System.out.println("Updating record in " + tableName + " with condition " + conditionColumn + "='" + conditionValue + "': " + updatedValues);
     }
+	@Override
+	public Business getBusinessAccount() {
+		return StubDataBaseRecords.business;
+	}
+
+	@Override
+	public boolean registerCustomer(Customer object) {
+		for (Customer customer: StubDataBaseRecords.customers)
+		{
+			
+		}
+		return false;
+	}
+
 }

@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.security.auth.login.AccountNotFoundException;
 
+import dto.Business;
 import dto.Customer;
 import dto.Reservation;
 
@@ -121,4 +122,30 @@ public class DataBaseImpl implements DataBase {
             System.out.println(e.getMessage());
         }
     }
+
+
+	@Override
+	public Customer getCustomerAccount(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reservation> getCustomerReservations(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Business getBusinessAccount() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean registerCustomer(Customer object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

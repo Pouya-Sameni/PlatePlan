@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import dto.Business;
 import dto.Customer;
 
 public class StubDataBaseRecords {
@@ -12,7 +13,7 @@ public class StubDataBaseRecords {
 			new Customer("janedoe@email.com", "jane", "doe", "password"),
 			new Customer("max@email.com", "max", "payne", "password")));
 	
-	
+	public static Business business = new Business ("alfredo@email.com", "password");
 	
 	
 

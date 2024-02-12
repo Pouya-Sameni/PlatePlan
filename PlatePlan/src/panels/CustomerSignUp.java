@@ -79,6 +79,12 @@ public class CustomerSignUp extends JPanel {
 			txtPass.setColumns(10);
 			
 			btnSignUp = new JButton("SignUp");
+			btnSignUp.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					
+				}
+			});
 			btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			btnSignUp.setBounds(471, 432, 158, 45);
 			add(btnSignUp);
