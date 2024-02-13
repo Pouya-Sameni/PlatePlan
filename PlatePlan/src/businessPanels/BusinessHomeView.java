@@ -1,4 +1,4 @@
-package panels;
+package businessPanels;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -6,6 +6,7 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
+import customerPanels.Constants;
 import main.PlatePlanMain;
 
 import javax.swing.JLabel;
@@ -43,7 +44,7 @@ public class BusinessHomeView extends JPanel {
 		JButton btnNewButton = new JButton("View & Manage Reservations");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PlatePlanMain.switchPanels(new reservationHomeView());
+				PlatePlanMain.switchPanels(new BusinessReservations());
 			}
 		});
 		btnNewButton.setBounds(429, 144, 231, 23);

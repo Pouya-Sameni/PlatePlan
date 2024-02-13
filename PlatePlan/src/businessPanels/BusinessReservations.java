@@ -1,4 +1,4 @@
-package panels;
+package businessPanels;
 
 import java.awt.Dimension;
 
@@ -18,6 +18,9 @@ import service_interfaces.AccountService;
 import services.AccountsServiceImpl;
 
 import javax.swing.table.DefaultTableModel;
+
+import customerPanels.Constants;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -29,10 +32,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JList;
 
-public class reservationHomeView extends JPanel {
+public class BusinessReservations extends JPanel {
 	private JTable table;
 	
-	public reservationHomeView(){
+	public BusinessReservations(){
 	//========================Setting Default Dimensions========================
 		Dimension windowDim = new Dimension(Constants.WINDOW_MAX_WIDTH, Constants.WINDOW_MAX_HEIGHT);
 		this.setPreferredSize(windowDim);

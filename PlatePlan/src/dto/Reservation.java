@@ -3,42 +3,50 @@
  */
 package dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
+
 public class Reservation {
 
-	@NonNull @Getter @Setter
+	@NonNull
+	@Getter
+	@Setter
 	private String customerId;
-	@NonNull @Getter @Setter
-	private LocalDateTime reservationTime;
-	@NonNull @Getter @Setter
+	
+	@NonNull
+	@Getter
+	@Setter
+	private LocalDate date;
+	
+	@NonNull
+	@Getter
+	@Setter
+	private TimeSlot time;
+	
+	@NonNull
+	@Getter
+	@Setter
 	private String specialNotes;
-	@NonNull @Getter @Setter
+
+	@Getter
+	@Setter
 	private Server server;
-	@NonNull @Getter @Setter
+	
+	@Getter
+	@Setter
 	private Table table;
 
-	public Reservation(String customerId, String specialNotes, Server server, Table table) {
-		this.customerId = customerId;
-		this.specialNotes = specialNotes;
-		this.server = server;
-		this.table = table;
-		this.reservationTime = LocalDateTime.now();
-				
-	}
-
 }
-
-
-
-

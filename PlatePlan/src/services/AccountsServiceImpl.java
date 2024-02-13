@@ -16,6 +16,12 @@ import service_interfaces.AccountService;
 public class AccountsServiceImpl implements AccountService {
     DataBase db;
 
+    public AccountsServiceImpl ()
+    {
+    	db = DataBaseFactory.getDatabase();
+    }
+    
+    
 	public Customer registerAccount(String firstName, String lastName, String email, String password) {
 		
 		return null;
@@ -34,6 +40,7 @@ public class AccountsServiceImpl implements AccountService {
 			System.out.println ("Incorrect password given: expected " + customer.getPassword() + " but was " + password);
 		}catch (Exception e) {
 			System.out.println ("Account with email " + email + " does not exist");
+			e.printStackTrace();
 		}
 		return null;
 	}

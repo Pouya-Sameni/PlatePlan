@@ -1,4 +1,4 @@
-package panels;
+package businessPanels;
 
 import java.awt.Dimension;
 
@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import customerPanels.Constants;
+import customerPanels.InitialView;
 import dto.Business;
 import dto.Customer;
 import main.PlatePlanMain;

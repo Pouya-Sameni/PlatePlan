@@ -1,4 +1,4 @@
-package panels;
+package customerPanels;
 
 import java.awt.Dimension;
 

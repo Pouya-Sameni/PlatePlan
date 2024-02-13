@@ -1,10 +1,13 @@
-package panels;
+package customerPanels;
 import main.PlatePlanMain;
 
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import javax.swing.JPanel;
+
+import businessPanels.BusinessSignIn;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

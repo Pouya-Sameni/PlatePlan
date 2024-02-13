@@ -1,4 +1,4 @@
-package panels;
+package customerPanels;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -13,11 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.Component;
 
 public class CustomerHomeView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JLabel lblNewLabel;
 
 	/**
 	 * Create the panel.
@@ -31,20 +33,23 @@ public class CustomerHomeView extends JPanel {
 		setLayout(null);
 		setBackground(new Color(255, 250, 250));
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		
-		lblNewLabel = new JLabel("Customer HOME VIEW");
-		lblNewLabel.setBounds(481, 342, 138, 16);
-		add(lblNewLabel);
-		
+		//===========================================================================
+
 		JButton btnMakeReservation = new JButton("Reserve Table");
+		btnMakeReservation.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		btnMakeReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PlatePlanMain.switchPanels(new ReservationPanel(customer));
+				PlatePlanMain.switchPanels(new CustomerReservations(customer));
 			}
 		});
-		btnMakeReservation.setBounds(123, 373, 110, 35);
+		btnMakeReservation.setBounds(466, 153, 152, 29);
 		add(btnMakeReservation);
-	//===========================================================================
+		
+		JLabel lblWelcome = new JLabel(String.format("Welcome to Alfredo's Reservation Service %s", customer.getFirstName()));
+		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcome.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblWelcome.setBounds(150, 23, 800, 48);
+		add(lblWelcome);
 		
 		
 	}

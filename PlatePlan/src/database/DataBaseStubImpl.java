@@ -1,5 +1,6 @@
 package database;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,7 @@ import javax.security.auth.login.AccountNotFoundException;
 import dto.Business;
 import dto.Customer;
 import dto.Reservation;
+import dto.Table;
 import misc.StubDataBaseRecords;
 
 public class DataBaseStubImpl implements DataBase {
@@ -37,11 +39,17 @@ public class DataBaseStubImpl implements DataBase {
         List<Customer> customers = StubDataBaseRecords.customers;
 
         try {
+        	for (Customer customer: customers)
+        	{
+        		System.out.println(customer.toString());
+        	}
+        	
             Customer customerFound = customers.stream()
                     .filter(customer -> customer.getEmail().equalsIgnoreCase(email)).findFirst()
                     .orElseThrow(() -> new AccountNotFoundException("No customer with the given email " + email));
             return customerFound;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new AccountNotFoundException("No customer with the given email " + email);
         }
     }
@@ -74,6 +82,18 @@ public class DataBaseStubImpl implements DataBase {
 			
 		}
 		return false;
+	}
+
+	@Override
+	public List<Table> getAllTables() {
+		return StubDataBaseRecords.tables;
+	}
+
+	@Override
+	public List<Reservation> getReservationsForDate(LocalDate date) {
+		return StubDataBaseRecords.reservations.stream().filter(reservation -> reservation.getDate().equals(date)).collect(Collectors.toList());
+		
+		
 	}
 
 }

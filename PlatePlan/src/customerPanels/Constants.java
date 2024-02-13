@@ -1,4 +1,4 @@
-package panels;
+package customerPanels;
 
 public class Constants {
 	public static int WINDOW_MAX_HEIGHT = 700;

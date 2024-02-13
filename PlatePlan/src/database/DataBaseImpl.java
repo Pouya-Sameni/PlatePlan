@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.security.auth.login.AccountNotFoundException;
 import dto.Business;
 import dto.Customer;
 import dto.Reservation;
+import dto.Table;
 
 public class DataBaseImpl implements DataBase {
 
@@ -135,6 +137,18 @@ public class DataBaseImpl implements DataBase {
 	public boolean registerCustomer(Customer object) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<Table> getAllTables() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reservation> getReservationsForDate(LocalDate date) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

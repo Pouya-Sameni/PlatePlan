@@ -4,11 +4,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import customerPanels.Constants;
+import customerPanels.CustomerReservations;
+import customerPanels.CustomerSignIn;
+import customerPanels.InitialView;
 import database.DataBaseImpl;
-import panels.Constants;
-import panels.CustomerSignIn;
-import panels.InitialView;
-import panels.ReservationPanel;
 import services.AccountsServiceImpl;
 import dto.Customer; // Import the Customer class
 
@@ -63,13 +63,13 @@ public class PlatePlanMain {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Start with the CustomerSignIn panel
-        switchPanels(new CustomerSignIn(this));
+        switchPanels(new InitialView());
     }
 
     /**
      * Method to switch between panels
      */
-    public void switchPanels(JPanel panel) {
+    public static void switchPanels(JPanel panel) {
         JPanel contentPane = (JPanel) frame.getContentPane();
         contentPane.removeAll();
         contentPane.add(panel);
@@ -77,10 +77,5 @@ public class PlatePlanMain {
         contentPane.repaint();
     }
 
-    /**
-     * Method to handle successful login and switch to ReservationPanel
-     */
-    public void onCustomerSignedIn(String email) {
-        switchPanels(new ReservationPanel(email));
-    }
+
 }

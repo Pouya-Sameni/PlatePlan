@@ -1,4 +1,4 @@
-package panels;
+package customerPanels;
 
 import java.awt.Dimension;
 
@@ -37,8 +37,7 @@ public class CustomerSignUp extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CustomerSignUp(PlatePlanMain mainApp) {
-		this.mainApp = mainApp;
+	public CustomerSignUp() {
 		//========================Setting Default Dimensions========================
 			Dimension windowDim = new Dimension(Constants.WINDOW_MAX_WIDTH, Constants.WINDOW_MAX_HEIGHT);
 			this.setPreferredSize(windowDim);
@@ -107,7 +106,7 @@ public class CustomerSignUp extends JPanel {
 			btnSignInLink = new JButton("Back To Sign In");
 			btnSignInLink.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent e) {
-			        mainApp.switchPanels(new CustomerSignIn(mainApp));
+			        PlatePlanMain.switchPanels(new CustomerSignIn());
 			    }
 			});
 			btnSignInLink.setBounds(471, 509, 158, 23);

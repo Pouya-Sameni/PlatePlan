@@ -1,4 +1,4 @@
-package panels;
+package businessPanels;
 
 import java.awt.Color;
 
@@ -26,6 +26,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.table.TableRowSorter;
 
+import customerPanels.Constants;
 import dto.Table;
 
 public class BusinessTableManageView extends JPanel{
