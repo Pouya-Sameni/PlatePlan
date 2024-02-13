@@ -15,10 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-
 public class Reservation {
 
 	@NonNull
@@ -45,6 +43,7 @@ public class Reservation {
 	@Setter
 	private Server server;
 	
+	@NonNull
 	@Getter
 	@Setter
 	private Table table;

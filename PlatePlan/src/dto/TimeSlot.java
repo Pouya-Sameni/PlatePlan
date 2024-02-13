@@ -3,6 +3,7 @@ package dto;
 import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -13,6 +14,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class TimeSlot {
 	
 	@Getter
@@ -25,4 +27,5 @@ public class TimeSlot {
 	@NonNull
 	private LocalTime to;
 
+	
 }

@@ -39,10 +39,6 @@ public class DataBaseStubImpl implements DataBase {
         List<Customer> customers = StubDataBaseRecords.customers;
 
         try {
-        	for (Customer customer: customers)
-        	{
-        		System.out.println(customer.toString());
-        	}
         	
             Customer customerFound = customers.stream()
                     .filter(customer -> customer.getEmail().equalsIgnoreCase(email)).findFirst()

@@ -2,7 +2,10 @@ package misc;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import database.DataBase;
@@ -18,63 +21,62 @@ import services.ReservationServiceImpl;
 
 public class ServiceUtils {
 
-    // Private static instance of the class
-    private static ServiceUtils instance;
-    private DataBase db;
-    private AccountService accountService;
-    private ReservationService reservationService;
-    
-    // Private constructor to prevent instantiation from outside the class
-    private ServiceUtils() {
-    	db = DataBaseFactory.getDatabase();
-    	accountService = new AccountsServiceImpl();
-    	reservationService = new ReservationServiceImpl();
-    }
+	// Private static instance of the class
+	private static ServiceUtils instance;
+	private DataBase db;
+	private AccountService accountService;
+	private ReservationService reservationService;
 
-    // Public static method to get the instance of the class
-    public static ServiceUtils getInstance() {
-        // Create the instance if it does not exist
-        if (instance == null) {
-            instance = new ServiceUtils();
-        }
-        // Return the existing instance
-        return instance;
-        
-    }
-    
-    public List<TimeSlot> getAvailableTables (LocalDate givenDate, int capRequested)
+	// Private constructor to prevent instantiation from outside the class
+	private ServiceUtils() {
+		db = DataBaseFactory.getDatabase();
+		accountService = new AccountsServiceImpl();
+		reservationService = new ReservationServiceImpl();
+	}
+
+	// Public static method to get the instance of the class
+	public static ServiceUtils getInstance() {
+		// Create the instance if it does not exist
+		if (instance == null) {
+			instance = new ServiceUtils();
+		}
+		// Return the existing instance
+		return instance;
+
+	}
+
+	public List<TimeSlot> getAvailableTables (LocalDate givenDate, int capRequested)
     {
-    	List<TimeSlot> avaiList = db.getBusinessAccount().getAllTimeSlots();
-    	
-    	List<Table> tables = db.getAllTables();
-    	
-    	tables = tables.stream().filter(table -> table.getCapacity() - capRequested <= 2).collect(Collectors.toList());
+    	List<TimeSlot> allSlots = db.getBusinessAccount().getAllTimeSlots();
+    	    	
+    	 List<Table> tables = db.getAllTables().stream().filter(table -> table.getCapacity() > capRequested).collect(Collectors.toList());
     	
     	List<Reservation> reservations = db.getReservationsForDate(givenDate);
     	
-    	
-    	List<Reservation> temp = new ArrayList<Reservation>();
-    	for (Reservation reservation: reservations)
+    	Set<TimeSlot> availableList = new HashSet<>(allSlots);
+
+
+    	for (TimeSlot timeSlot: allSlots)
     	{
-    		for (Table table: tables) {
-    			if (!table.getId().equals(reservation.getTable().getId()))
+    		
+    		for (Reservation reservation: reservations)
+    		{
+    			for (Table table: tables)
     			{
-    				temp.add(table);
+    				if ((reservation.getTable().getId().equals(table.getId()) && reservation.getTime().equals(timeSlot)))
+    				{
+    					availableList.remove(timeSlot);
+    				}
     			}
     		}
     	}
-    		
     	
-    	List<Reservation> filteredReservations = reservations.stream()
-    		    .filter(reservation -> tables.stream()
-    		        .anyMatch(table -> table.getId().equals(reservation.getTable().getId())))
-    		    .collect(Collectors.toList());
-    	
-    	
-    	
-		return null;
+    	System.out.println("Tables Available Are: " + tables.toString());
+    	System.out.println("Reservations In System Are: " + reservations.toString());
+    	System.out.println("Available Time Slots Are: " + availableList + "\n\n");
+
+		return new ArrayList<>(availableList);
     	
     }
-
 
 }
