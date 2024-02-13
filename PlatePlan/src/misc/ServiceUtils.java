@@ -25,13 +25,11 @@ public class ServiceUtils {
 	private static ServiceUtils instance;
 	private DataBase db;
 	private AccountService accountService;
-	private ReservationService reservationService;
 
 	// Private constructor to prevent instantiation from outside the class
 	private ServiceUtils() {
 		db = DataBaseFactory.getDatabase();
 		accountService = new AccountsServiceImpl();
-		reservationService = new ReservationServiceImpl();
 	}
 
 	// Public static method to get the instance of the class
@@ -45,11 +43,19 @@ public class ServiceUtils {
 
 	}
 
+	
+	public List<Table> getTablesMatchingResReq (int capRequested)
+	{
+   	 List<Table> tables = db.getAllTables().stream().filter(table -> table.getCapacity() >= capRequested).collect(Collectors.toList());
+
+   	 return tables;
+	}
+	
 	public List<TimeSlot> getAvailableTables (LocalDate givenDate, int capRequested)
     {
     	List<TimeSlot> allSlots = db.getBusinessAccount().getAllTimeSlots();
     	    	
-    	 List<Table> tables = db.getAllTables().stream().filter(table -> table.getCapacity() > capRequested).collect(Collectors.toList());
+    	List<Table> tables = this.getTablesMatchingResReq(capRequested);
     	
     	List<Reservation> reservations = db.getReservationsForDate(givenDate);
     	
@@ -58,16 +64,22 @@ public class ServiceUtils {
 
     	for (TimeSlot timeSlot: allSlots)
     	{
-    		
+			int tablesAvailable = tables.size();
     		for (Reservation reservation: reservations)
     		{
     			for (Table table: tables)
     			{
-    				if ((reservation.getTable().getId().equals(table.getId()) && reservation.getTime().equals(timeSlot)))
+    				if ((reservation.getTableId().equals(table.getId()) && reservation.getTime().equals(timeSlot)))
     				{
-    					availableList.remove(timeSlot);
+    					System.out.println("Removing Time Slot " + timeSlot + " from available slots");
+    					tablesAvailable --;
     				}
     			}
+    		}
+    		
+    		if (tablesAvailable == 0)
+    		{
+    			availableList.remove(timeSlot);
     		}
     	}
     	

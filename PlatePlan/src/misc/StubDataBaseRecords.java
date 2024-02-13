@@ -14,11 +14,11 @@ import dto.Table;
 
 public class StubDataBaseRecords {
 	public static List<Customer> customers = new ArrayList<Customer>(
-			Arrays.asList(new Customer("johndoe@email.com", "john", "doe", "password"),
+			Arrays.asList(new Customer("john", "john", "doe", "password"),
 					new Customer("janedoe@email.com", "jane", "doe", "password"),
 					new Customer("max@email.com", "max", "payne", "password")));
 
-	public static Business business = new Business("alfredo@email.com", "password");
+	public static Business business = new Business("alfredo", "password");
 
 
 	public static List<Server> servers = new ArrayList<Server>(Arrays.asList(

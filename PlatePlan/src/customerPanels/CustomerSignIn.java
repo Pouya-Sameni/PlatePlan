@@ -31,6 +31,7 @@ public class CustomerSignIn extends JPanel {
     private JLabel lblPass;
     private JButton btnSignIn;
     private JButton btnRegister;
+    private JButton btnBack;
 
     // Added reference to PlatePlanMain
 
@@ -93,6 +94,15 @@ public class CustomerSignIn extends JPanel {
         btnRegister.setBackground(new Color(255, 250, 250));
         btnRegister.setBounds(400, 470, 300, 29);
         add(btnRegister);
+        
+        btnBack = new JButton("Back");
+        btnBack.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		PlatePlanMain.switchPanels(new InitialView());
+        	}
+        });
+        btnBack.setBounds(6, 6, 117, 29);
+        add(btnBack);
         
         
     }

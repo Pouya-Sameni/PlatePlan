@@ -73,14 +73,5 @@ public class AccountsServiceImpl implements AccountService {
 
 
 
-    @Override
-    public void addReservationToAccount(Reservation reservation, String email) {
-        try {
-            Customer customer = db.getCustomerAccount(email);
-            customer.addReservation(reservation);
-            db.updateRecord(SQLTables.ACCOUNTS_TABLE, customer.genSQLValue(), "email", email);
-        } catch (Exception e) {
-            System.out.println("Error adding reservation to account: " + e.getMessage());
-        }
-    }
+    
 }

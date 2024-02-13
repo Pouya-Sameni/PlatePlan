@@ -51,6 +51,15 @@ public class CustomerHomeView extends JPanel {
 		lblWelcome.setBounds(150, 23, 800, 48);
 		add(lblWelcome);
 		
+		JButton btnLogOut = new JButton("Log Out");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PlatePlanMain.switchPanels(new InitialView());
+			}
+		});
+		btnLogOut.setBounds(6, 6, 117, 29);
+		add(btnLogOut);
+		
 		
 	}
 }

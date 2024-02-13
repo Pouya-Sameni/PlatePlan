@@ -16,7 +16,7 @@ public interface DataBase {
 		
 	public Business getBusinessAccount ();
 
-    public boolean insertRecord(String tableName, String values);
+    public boolean insertRecord(String tableName, Object object);
 
     public Customer getCustomerAccount(String email) throws AccountNotFoundException;
 
@@ -27,4 +27,8 @@ public interface DataBase {
     public List<Reservation> getReservationsForDate (LocalDate date);
 
     public void updateRecord(String tableName, String updatedValues, String conditionColumn, String conditionValue);
+
+	public Reservation getReservationWithId(String id);
+	
+	public List<Reservation> getAllReservations();
 }

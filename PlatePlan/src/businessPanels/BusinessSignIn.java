@@ -105,7 +105,7 @@ public class BusinessSignIn extends JPanel {
 
 		if (business != null)
 		{
-			PlatePlanMain.switchPanels(new BusinessHomeView());
+			PlatePlanMain.switchPanels(new BusinessHomeView(business));
 		}else {
 			add(signInErrorLbl);
 			PlatePlanMain.refreshPage();

@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -22,9 +21,6 @@ public class Table {
 	
 	@Getter @Setter @NonNull
 	private int capacity;
-	
-	@Getter @Setter
-	private List<Reservation> reservations;
 	
 	
 	

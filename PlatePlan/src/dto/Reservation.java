@@ -17,7 +17,13 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
+@ToString
 public class Reservation {
+	
+	@NonNull
+	@Getter
+	@Setter
+	private String id;
 
 	@NonNull
 	@Getter
@@ -41,11 +47,16 @@ public class Reservation {
 
 	@Getter
 	@Setter
-	private Server server;
+	private String serverId;
 	
 	@NonNull
 	@Getter
 	@Setter
-	private Table table;
+	private String tableId;
+	
+	@NonNull
+	@Getter
+	@Setter
+	private int partySize;
 
 }

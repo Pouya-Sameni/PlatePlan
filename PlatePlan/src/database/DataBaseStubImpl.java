@@ -1,6 +1,8 @@
 package database;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,11 +29,27 @@ public class DataBaseStubImpl implements DataBase {
     }
 
     @Override
-    public boolean insertRecord(String tableName, String values) {
+    public boolean insertRecord(String tableName, Object object) {
         // Simulate inserting a record into the database
         // (in a real database, you would execute SQL insert statements)
-        System.out.println("Inserting record into " + tableName + ": " + values);
-        return true; // Return true to indicate success
+    	try {
+    		if (tableName.equals(SQLTables.RESERVATION_TABLE))
+        	{
+        		Reservation reservation = (Reservation)object;
+        		
+        		StubDataBaseRecords.reservations.add(reservation);
+        		
+        	}
+            System.out.println("Inserting record into " + tableName + ": " + object.toString());
+            return true; // Return true to indicate success
+
+    	}catch (Exception e) {
+    		System.out.println("Error inserting Record + " + object.toString());
+    		
+    	}
+    	return false;
+    	
+    	
     }
 
     @Override
@@ -55,7 +73,14 @@ public class DataBaseStubImpl implements DataBase {
         Customer customer = this.getCustomerAccount(email);
 
         if (customer != null) {
-            return customer.getReservations();
+        	
+        	List<Reservation> reservations = new ArrayList<Reservation>();
+        	for (String resId: customer.getReservations())
+        	{
+        		reservations.add(getReservationWithId(resId));
+        	}
+        	reservations.removeAll(Collections.singleton(null));
+            return reservations;
         }
         throw new AccountNotFoundException("No customer with the given email " + email);
     }
@@ -75,9 +100,14 @@ public class DataBaseStubImpl implements DataBase {
 	public boolean registerCustomer(Customer object) {
 		for (Customer customer: StubDataBaseRecords.customers)
 		{
-			
+			if (customer.getEmail().equals(object.getEmail()))
+			{
+				return false;
+			}
 		}
-		return false;
+		
+		StubDataBaseRecords.customers.add(object);
+		return true;
 	}
 
 	@Override
@@ -87,9 +117,23 @@ public class DataBaseStubImpl implements DataBase {
 
 	@Override
 	public List<Reservation> getReservationsForDate(LocalDate date) {
+		
+		System.out.println( date + " All Reservations: " + StubDataBaseRecords.reservations);
 		return StubDataBaseRecords.reservations.stream().filter(reservation -> reservation.getDate().equals(date)).collect(Collectors.toList());
 		
 		
+	}
+	
+	@Override
+	public Reservation getReservationWithId(String id) {
+				return StubDataBaseRecords.reservations.stream().filter(reservation -> reservation.getId().equals(id)).findFirst().orElse(null);
+		
+		
+	}
+
+	@Override
+	public List<Reservation> getAllReservations() {
+		return StubDataBaseRecords.reservations != null ? StubDataBaseRecords.reservations : new ArrayList<Reservation>();
 	}
 
 }

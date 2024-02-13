@@ -116,6 +116,16 @@ public class CustomerReservations extends JPanel {
 		datePicker.setSize(202, 29);
 
 		add(datePicker);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PlatePlanMain.switchPanels(new CustomerHomeView(customer));
+				
+			}
+		});
+		btnBack.setBounds(6, 6, 117, 29);
+		add(btnBack);
 		// Add action listener to button
 		btnSubmitReservation.addActionListener(new ActionListener() {
 			@Override
@@ -135,7 +145,7 @@ public class CustomerReservations extends JPanel {
 			int capacity = (Integer) spinner.getValue();
 
 			System.out.println("Searching for Time Slot: " + localDate + " For " + capacity);
-			timeList = (ArrayList<TimeSlot>) serviceUtils.getAvailableTables(LocalDate.now(), capacity);
+			timeList = (ArrayList<TimeSlot>) serviceUtils.getAvailableTables(localDate, capacity);
 			listOfAvailableTimes.removeAll();
 			timeSlotMap.clear();
 			for (TimeSlot timeSlot : timeList) {
@@ -154,12 +164,24 @@ public class CustomerReservations extends JPanel {
 		try {
 			int capacity = (Integer)spinner.getValue();
 			TimeSlot timeSlotChosen = timeSlotMap.get(listOfAvailableTimes.getSelectedItem());
+			
+			if (timeSlotChosen == null)
+			{
+				throw new NullPointerException();
+			}
 			LocalDate date = ((Date) datePicker.getModel().getValue())
 					.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			reservationService.createCustomerReservation(customer,date,timeSlotChosen,capacity );
+			Reservation reservation = reservationService.createCustomerReservation(customer,date,timeSlotChosen,capacity );
+			
+			if (reservation == null)
+			{
+				throw new NullPointerException();
+			}
+			
 			JOptionPane.showMessageDialog(this, "Reservation Submitted Successfully!", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			JOptionPane.showMessageDialog(this, "Error submitting reservation: " + ex.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}

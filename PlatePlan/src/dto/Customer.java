@@ -37,14 +37,8 @@ public class Customer {
 
     @Getter
     @Setter
-    private List<Reservation> reservations;
+    private List<String> reservations;
 
-    public void addReservation(Reservation reservation) {
-        if (reservations == null) {
-            reservations = new ArrayList<>();
-        }
-        reservations.add(reservation);
-    }
 
     public String genSQLValue() {
         // Use PreparedStatement to avoid SQL injection vulnerabilities

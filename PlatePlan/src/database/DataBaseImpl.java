@@ -48,21 +48,21 @@ public class DataBaseImpl implements DataBase {
     }
 
     @Override
-    public boolean insertRecord(String tableName, String values) {
-        try {
-            Connection conn = establishConnection();
-            String insertCommand = String.format("INSERT INTO %s %s VALUES %s", tableName, getColumns(tableName),
-                    values);
-            System.out.println(insertCommand);
-            PreparedStatement pstmt = conn.prepareStatement(insertCommand);
-
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows > 0) {
-                System.out.println("A new record was inserted successfully.");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    public boolean insertRecord(String tableName, Object object) {
+//        try {
+//            Connection conn = establishConnection();
+//            String insertCommand = String.format("INSERT INTO %s %s VALUES %s", tableName, getColumns(tableName),
+//                    values);
+//            System.out.println(insertCommand);
+//            PreparedStatement pstmt = conn.prepareStatement(insertCommand);
+//
+//            int affectedRows = pstmt.executeUpdate();
+//            if (affectedRows > 0) {
+//                System.out.println("A new record was inserted successfully.");
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
         return true;
     }
 
@@ -147,6 +147,18 @@ public class DataBaseImpl implements DataBase {
 
 	@Override
 	public List<Reservation> getReservationsForDate(LocalDate date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Reservation getReservationWithId(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reservation> getAllReservations() {
 		// TODO Auto-generated method stub
 		return null;
 	}
