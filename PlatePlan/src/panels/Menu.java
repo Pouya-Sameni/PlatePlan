@@ -178,7 +178,8 @@ public class Menu extends JPanel{
 			add(beveragePrice3);
 			
 			JLabel totalCostPrice = new JLabel("Total: " + totalCost);
-			totalCostPrice.setBounds(700, 648, 100, 16);
+			totalCostPrice.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 25));
+			totalCostPrice.setBounds(694, 620, 197, 37);
 			add(totalCostPrice);
 			
 			// Buttons
