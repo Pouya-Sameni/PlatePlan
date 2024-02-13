@@ -3,8 +3,10 @@ package misc;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,6 +14,7 @@ import database.DataBase;
 import database.DataBaseFactory;
 import dto.Business;
 import dto.Reservation;
+import dto.Server;
 import dto.Table;
 import dto.TimeSlot;
 import service_interfaces.AccountService;
@@ -90,5 +93,19 @@ public class ServiceUtils {
 		return new ArrayList<>(availableList);
     	
     }
+	
+	//TODO: Have to Worry about servers with same name
+	public Map<String, String> getAllServers ()
+	{
+		
+		Map<String, String> map = new HashMap<>();
+		for (Server server: db.getAllServers())
+		{
+
+			map.put(server.getId(), server.getFirstName() + " " + server.getLastName());
+		}
+		
+		return map;
+	}
 
 }

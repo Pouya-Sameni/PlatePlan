@@ -62,5 +62,14 @@ public class BusinessHomeView extends JPanel {
 		});
 		btnLogOut.setBounds(6, 6, 117, 29);
 		add(btnLogOut);
+		
+		JButton btnManageTables = new JButton("View & Manage Tables");
+		btnManageTables.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PlatePlanMain.switchPanels(new BusinessTableManageView(bussiness));
+			}
+		});
+		btnManageTables.setBounds(429, 184, 231, 23);
+		add(btnManageTables);
 	}
 }

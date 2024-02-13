@@ -23,19 +23,19 @@ public class StubDataBaseRecords {
 
 	public static List<Server> servers = new ArrayList<Server>(Arrays.asList(
 
-			new Server(UUID.randomUUID().toString(), "pouya", "sameni"),
-			new Server(UUID.randomUUID().toString(), "peter", "parker"),
-			new Server(UUID.randomUUID().toString(), "chris", "evans")
+			new Server("1", "pouya", "sameni"),
+			new Server("2", "peter", "parker"),
+			new Server("3", "chris", "evans")
 
 	));
 
 	public static List<Table> tables = new ArrayList<Table>(Arrays.asList(
-			new Table("1", 4),
-			new Table("2", 2),
-			new Table("3", 2),
-			new Table("4", 6),
-			new Table("5", 8),
-			new Table("6", 4)
+			new Table("1", 4, "1"),
+			new Table("2", 2, "1"),
+			new Table("3", 2, "2"),
+			new Table("4", 6, "2"),
+			new Table("5", 8, "3"),
+			new Table("6", 4, "3")
 	));
 	
 	

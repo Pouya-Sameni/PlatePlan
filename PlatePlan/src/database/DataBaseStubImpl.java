@@ -11,6 +11,7 @@ import javax.security.auth.login.AccountNotFoundException;
 import dto.Business;
 import dto.Customer;
 import dto.Reservation;
+import dto.Server;
 import dto.Table;
 import misc.StubDataBaseRecords;
 
@@ -134,6 +135,11 @@ public class DataBaseStubImpl implements DataBase {
 	@Override
 	public List<Reservation> getAllReservations() {
 		return StubDataBaseRecords.reservations != null ? StubDataBaseRecords.reservations : new ArrayList<Reservation>();
+	}
+
+	@Override
+	public List<Server> getAllServers() {
+		return StubDataBaseRecords.servers;
 	}
 
 }

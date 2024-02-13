@@ -22,6 +22,8 @@ public class Table {
 	@Getter @Setter @NonNull
 	private int capacity;
 	
+	@Getter @Setter @NonNull
+	private String server;
 	
 	
 }

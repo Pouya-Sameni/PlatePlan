@@ -22,20 +22,33 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Map;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.table.TableRowSorter;
 
 import customerPanels.Constants;
+import dto.Business;
+import dto.Server;
 import dto.Table;
+import misc.ServiceUtils;
 
 public class BusinessTableManageView extends JPanel{
 	private JTextField textID;
 	private JTextField textCapacity;
 	private JTable table;
 	private JTextField textSearch;
-	
-	public BusinessTableManageView() {
+	private ServiceUtils serviceUtils;
+	private Business business;
+	private DefaultTableModel model;
+	private JButton btnAddTable;
+	private JButton btnRemove;
+	private JButton btnChange;
+	private JButton btnReset;
+	private JScrollPane scrollPane;
+	private JLabel lblSearch;
+	private JComboBox serverBox;
+	public BusinessTableManageView(Business business) {
 		//========================Setting Default Dimensions========================
 		Dimension windowDim = new Dimension(Constants.WINDOW_MAX_WIDTH, Constants.WINDOW_MAX_HEIGHT);
 		this.setPreferredSize(windowDim);
@@ -46,6 +59,9 @@ public class BusinessTableManageView extends JPanel{
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 	//===========================================================================
 		
+			this.business = business;
+			serviceUtils = ServiceUtils.getInstance();
+				
 			JLabel welcomeLabel = new JLabel("Table Manager");
 			welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 26));
@@ -77,36 +93,28 @@ public class BusinessTableManageView extends JPanel{
 			add(textCapacity);
 			
 			
-			JComboBox serverBox = new JComboBox();
+			serverBox = new JComboBox();
 			serverBox.setFont(new Font("Arial", Font.PLAIN, 12));
-			serverBox.setModel(new DefaultComboBoxModel(new String[] {"Select Server", "Ricky", "Dereck", "John", "Fish"}));
+			serverBox.setModel(new DefaultComboBoxModel(serviceUtils.getAllServers().values().toArray()));
 			serverBox.setBounds(765, 288, 168, 22);
 			add(serverBox);
 			
-			JButton btnNewButton = new JButton("Add");
-			btnNewButton.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnNewButton.setBounds(713, 371, 89, 23);
-			btnNewButton.addActionListener(new ActionListener() {
+			btnAddTable = new JButton("Add");
+			btnAddTable.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnAddTable.setBounds(713, 371, 89, 23);
+			btnAddTable.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					DefaultTableModel model = (DefaultTableModel) table.getModel();
-					if (textID.getText().equals("") || textCapacity.getText().equals("") || serverBox.getSelectedItem().equals("Select Server"))
-					{
-						// do nothing
-					}
-					else 
-					{
-						model.addRow(new Object[] {textID.getText(), textCapacity.getText(), serverBox.getSelectedItem()});
-					}
+					addTable();
 				}
 			});
-			add(btnNewButton);
+			add(btnAddTable);
 			
-			JButton btnChange = new JButton("Change");
+			btnChange = new JButton("Change");
 			btnChange.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnChange.setBounds(859, 371, 89, 23);
 			btnChange.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					
 					if (table.getSelectedRowCount() == 1) {
 						Object id = textID.getText();
 						Object capacity = textCapacity.getText();
@@ -124,9 +132,9 @@ public class BusinessTableManageView extends JPanel{
 					}
 				}
 			});
-			add(btnChange);
+			//add(btnChange);
 			
-			JButton btnRemove = new JButton("Remove");
+			btnRemove = new JButton("Remove");
 			btnRemove.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnRemove.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -137,7 +145,7 @@ public class BusinessTableManageView extends JPanel{
 			btnRemove.setBounds(713, 405, 89, 23);
 			add(btnRemove);
 			
-			JButton btnReset = new JButton("Reset");
+			btnReset = new JButton("Reset");
 			btnReset.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnReset.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -147,9 +155,9 @@ public class BusinessTableManageView extends JPanel{
 				}
 			});
 			btnReset.setBounds(859, 405, 89, 23);
-			add(btnReset);
+			//add(btnReset);
 			
-			JScrollPane scrollPane = new JScrollPane();
+			scrollPane = new JScrollPane();
 			scrollPane.setBounds(56, 66, 579, 562);
 			add(scrollPane);
 			
@@ -170,16 +178,21 @@ public class BusinessTableManageView extends JPanel{
 					
 				}
 			});
-			table.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"ID", "Capacity", "Server"
-				}
-			));
+			
+			model = new DefaultTableModel(
+					new String[] {
+						"ID", "Capacity", "Server"
+					},0
+				);
+			table.setModel(model);
 			table.getColumnModel().getColumn(0).setPreferredWidth(15);
 			table.setBackground(new Color(255, 255, 255));
 			scrollPane.setViewportView(table);
+			
+			for (Table table: serviceUtils.getTablesMatchingResReq(0))
+			{
+				model.addRow(new Object[] {table.getId(), table.getCapacity(), serviceUtils.getAllServers().get(table.getServer())});
+			}
 			
 			textSearch = new JTextField();
 			textSearch.setFont(new Font("Arial", Font.PLAIN, 11));
@@ -197,11 +210,32 @@ public class BusinessTableManageView extends JPanel{
 			textSearch.setBounds(143, 35, 168, 20);
 			add(textSearch);
 			
-			JLabel lblSearch = new JLabel("Search:");
+			lblSearch = new JLabel("Search:");
 			lblSearch.setBounds(87, 38, 46, 14);
 			add(lblSearch);
 			
 			
 			
+	}
+	
+	private void addTable ()
+	{
+		String tableId = textID.getText();
+		int cap = Integer.valueOf(textCapacity.getText());
+		String serverId = (String)serverBox.getSelectedItem();
+		
+		Map<String,String> serverMap = serviceUtils.getAllServers();
+		for (String id: serverMap.keySet())
+		{
+			if (serverMap.get(id).equals(serverId))
+			{
+				serverId = id;
+				break;
+			}
+		}
+		
+		//TODO: Add Tables To Model and DataBase
+		
+		
 	}
 }

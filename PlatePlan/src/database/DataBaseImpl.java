@@ -15,6 +15,7 @@ import javax.security.auth.login.AccountNotFoundException;
 import dto.Business;
 import dto.Customer;
 import dto.Reservation;
+import dto.Server;
 import dto.Table;
 
 public class DataBaseImpl implements DataBase {
@@ -159,6 +160,12 @@ public class DataBaseImpl implements DataBase {
 
 	@Override
 	public List<Reservation> getAllReservations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Server> getAllServers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
