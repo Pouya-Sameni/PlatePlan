@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.security.auth.login.AccountNotFoundException;
 
@@ -21,7 +22,6 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	DataBase db;
 	ServiceUtils serviceUtils;
-	
 	public ReservationServiceImpl() {
 		this.db = DataBaseFactory.getDatabase();
 		serviceUtils = ServiceUtils.getInstance();
@@ -30,8 +30,8 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public List<Reservation> getCustomerReservation(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return db.getAllReservations().stream().filter(reservation -> reservation.getCustomerId().equals(email)).collect(Collectors.toList());
 	}
 
 

@@ -40,8 +40,14 @@ public class DataBaseStubImpl implements DataBase {
         		
         		StubDataBaseRecords.reservations.add(reservation);
         		
+        	}else if (tableName.equals(SQLTables.TABLES_TABLE))
+        	{
+        		Table table = (Table) object;
+        		StubDataBaseRecords.tables.add(table);
         	}
+    		
             System.out.println("Inserting record into " + tableName + ": " + object.toString());
+
             return true; // Return true to indicate success
 
     	}catch (Exception e) {
@@ -140,6 +146,21 @@ public class DataBaseStubImpl implements DataBase {
 	@Override
 	public List<Server> getAllServers() {
 		return StubDataBaseRecords.servers;
+	}
+
+	@Override
+	public boolean deleteTable(String id) {
+		
+		for (Table table: StubDataBaseRecords.tables )
+		{
+			if (table.getId().equals(id))
+			{
+				StubDataBaseRecords.tables.remove(table);
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 }

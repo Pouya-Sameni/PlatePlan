@@ -170,4 +170,10 @@ public class DataBaseImpl implements DataBase {
 		return null;
 	}
 
+	@Override
+	public boolean deleteTable(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

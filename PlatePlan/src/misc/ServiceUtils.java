@@ -10,8 +10,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.postgresql.core.Tuple;
+
 import database.DataBase;
 import database.DataBaseFactory;
+import database.SQLTables;
 import dto.Business;
 import dto.Reservation;
 import dto.Server;
@@ -107,5 +110,30 @@ public class ServiceUtils {
 		
 		return map;
 	}
+	
+	public boolean registerTable (String id, int cap, String server)
+	{
+		Table table = new Table(id, cap, server);
+		
+		for (Table table2: db.getAllTables())
+		{
+			if (table.getId().equals(table2.getId()))
+			{
+				return false;
+			}
+		}
+		
+		db.insertRecord(SQLTables.TABLES_TABLE, table);
+		
+		return true;
+	}
+	
+	public boolean deleteTable (String id)
+	{
+		
+		return db.deleteTable(id);
+		
+	}
+	
 
 }
