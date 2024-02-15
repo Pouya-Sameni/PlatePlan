@@ -1,4 +1,4 @@
-package panels;
+package customerPanels;
 
 import java.awt.Dimension;
 
@@ -18,7 +18,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class CustomerSignUp extends JPanel {
-
 	private static final long serialVersionUID = 1L;
 	private JTextField username;
 	private JPasswordField passwordField;
@@ -78,6 +77,12 @@ public class CustomerSignUp extends JPanel {
 			txtPass.setColumns(10);
 			
 			btnSignUp = new JButton("SignUp");
+			btnSignUp.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					
+				}
+			});
 			btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			btnSignUp.setBounds(471, 432, 158, 45);
 			add(btnSignUp);
@@ -100,9 +105,9 @@ public class CustomerSignUp extends JPanel {
 			
 			btnSignInLink = new JButton("Back To Sign In");
 			btnSignInLink.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					PlatePlanMain.switchPanels(new CustomerSignIn());
-				}
+			    public void actionPerformed(ActionEvent e) {
+			        PlatePlanMain.switchPanels(new CustomerSignIn());
+			    }
 			});
 			btnSignInLink.setBounds(471, 509, 158, 23);
 			add(btnSignInLink);

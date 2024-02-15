@@ -1,9 +1,14 @@
-package dto;
+ package dto;
 
+import java.util.List;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor
@@ -11,28 +16,14 @@ import lombok.ToString;
 @ToString
 public class Table {
 	
-	private UUID id;
+	@Getter @Setter @NonNull
+	private String id;
+	
+	@Getter @Setter @NonNull
 	private int capacity;
-	private Server server;
 	
+	@Getter @Setter @NonNull
+	private String server;
 	
-	public UUID getId() {
-		return id;
-	}
-	public void setId(UUID id) {
-		this.id = id;
-	}
-	public int getCapacity() {
-		return capacity;
-	}
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
-	}
-	public Server getServer() {
-		return server;
-	}
-	public void setServer(Server server) {
-		this.server = server;
-	}
 	
 }

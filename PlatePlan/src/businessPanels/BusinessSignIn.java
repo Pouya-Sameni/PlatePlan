@@ -1,4 +1,4 @@
-package panels;
+package businessPanels;
 
 import java.awt.Dimension;
 
@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import customerPanels.Constants;
+import customerPanels.InitialView;
+import dto.Business;
 import dto.Customer;
 import main.PlatePlanMain;
 import service_interfaces.AccountService;
@@ -20,19 +23,17 @@ import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CustomerSignIn extends JPanel {
+public class BusinessSignIn extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField username;
 	private JPasswordField passwordField;
-	private JLabel lblUser;
-	private JLabel lblPass;
-	private JButton btnSignIn;
-	private JButton btnRegister;
+	private JLabel signInErrorLbl;
+
 	/**
 	 * Create the panel.
 	 */
-	public CustomerSignIn() {
+	public BusinessSignIn() {
 		//========================Setting Default Dimensions========================
 			Dimension windowDim = new Dimension(Constants.WINDOW_MAX_WIDTH, Constants.WINDOW_MAX_HEIGHT);
 			this.setPreferredSize(windowDim);
@@ -44,10 +45,10 @@ public class CustomerSignIn extends JPanel {
 		//===========================================================================
 			
 			
-			JLabel welcomeLabel = new JLabel("Welcome To Alfredos");
+			JLabel welcomeLabel = new JLabel("Sign In");
 			welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 26));
-			welcomeLabel.setBounds(417, 36, 266, 127);
+			welcomeLabel.setBounds(417, 36, 266, 75);
 			add(welcomeLabel);
 			
 			username = new JTextField();
@@ -59,50 +60,55 @@ public class CustomerSignIn extends JPanel {
 			passwordField.setBounds(425, 301, 250, 30);
 			add(passwordField);
 			
-			lblUser = new JLabel("Username");
+			JLabel lblUser = new JLabel("Username");
 			lblUser.setBounds(425, 175, 120, 16);
 			add(lblUser);
 			
-			lblPass = new JLabel("Password");
+			JLabel lblPass = new JLabel("Password");
 			lblPass.setBounds(425, 283, 120, 16);
 			add(lblPass);
 			
-			btnSignIn = new JButton("Sign In");
+			JButton btnSignIn = new JButton("Sign In");
 			btnSignIn.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					SignInCustomer();
+				public void actionPerformed(ActionEvent e) {
+					businessSignIn();
 				}
 			});
 			btnSignIn.setBounds(491, 394, 117, 29);
 			add(btnSignIn);
 			
-			btnRegister = new JButton("Don't have an account? Register Now!");
-			btnRegister.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					
-					PlatePlanMain.switchPanels(new CustomerSignUp());
-					
+			JButton btnBackToInitialView = new JButton("Back");
+			btnBackToInitialView.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					PlatePlanMain.switchPanels(new InitialView());
 				}
 			});
-			btnRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnRegister.setBorderPainted(false);
-			btnRegister.setForeground(Color.BLUE);
-			btnRegister.setBackground(new Color(255, 250, 250));
-			btnRegister.setBounds(400, 470, 300, 29);
-			add(btnRegister);
+			btnBackToInitialView.setBounds(10, 11, 89, 23);
+			add(btnBackToInitialView);
+			
+			signInErrorLbl = new JLabel("Inccorrect Email or Password. Please Try Again!");
+			signInErrorLbl.setHorizontalAlignment(SwingConstants.CENTER);
+			signInErrorLbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			signInErrorLbl.setForeground(Color.RED);
+			signInErrorLbl.setBounds(372, 118, 356, 30);
 			
 	}
 	
-	private void SignInCustomer ()
+	private void businessSignIn()
 	{
+		remove(signInErrorLbl);
 		AccountService accountService = new AccountsServiceImpl();
 		
 		String pass = String.valueOf(passwordField.getPassword());
-		Customer customer = accountService.login(username.getText(), pass);
+		Business business = accountService.businessLogin(username.getText(), pass);
 		
-		if (customer != null)
+
+		if (business != null)
 		{
-			PlatePlanMain.switchPanels(new CustomerHomeView());
+			PlatePlanMain.switchPanels(new BusinessHomeView(business));
+		}else {
+			add(signInErrorLbl);
+			PlatePlanMain.refreshPage();
 		}
 		
 		
