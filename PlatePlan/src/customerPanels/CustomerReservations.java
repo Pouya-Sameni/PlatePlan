@@ -51,6 +51,7 @@ public class CustomerReservations extends JPanel {
 	private JSpinner spinner;
 	private JDatePickerImpl datePicker;
 	private Map<String, TimeSlot> timeSlotMap;
+	private JTextPane txtSpecialNotesPane;
 
 	public CustomerReservations(Customer customer) {
 		// ========================Setting Default Dimensions========================
@@ -73,13 +74,13 @@ public class CustomerReservations extends JPanel {
 		lblDate = new JLabel("Date (dd/MM/yyyy):");
 		lblDate.setBounds(277, 121, 134, 14);
 		btnSubmitReservation = new JButton("Submit Reservation");
-		btnSubmitReservation.setBounds(467, 530, 165, 29);
+		btnSubmitReservation.setBounds(467, 600, 165, 29);
 		setLayout(null);
 
 		listOfAvailableTimes = new List();
 		listOfAvailableTimes.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		listOfAvailableTimes.setFont(new Font("Arial", Font.PLAIN, 18));
-		listOfAvailableTimes.setBounds(450, 210, 200, 300);
+		listOfAvailableTimes.setBounds(318, 239, 200, 300);
 
 		add(listOfAvailableTimes);
 
@@ -126,6 +127,20 @@ public class CustomerReservations extends JPanel {
 		});
 		btnBack.setBounds(6, 6, 117, 29);
 		add(btnBack);
+		
+		txtSpecialNotesPane = new JTextPane();
+		txtSpecialNotesPane.setBounds(555, 239, 200, 300);
+		add(txtSpecialNotesPane);
+		
+		JLabel lblAvailableTimes = new JLabel("Available Times");
+		lblAvailableTimes.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblAvailableTimes.setBounds(318, 219, 90, 15);
+		add(lblAvailableTimes);
+		
+		JLabel lblSpecialNotes = new JLabel("Special Notes");
+		lblSpecialNotes.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblSpecialNotes.setBounds(555, 220, 90, 15);
+		add(lblSpecialNotes);
 		// Add action listener to button
 		btnSubmitReservation.addActionListener(new ActionListener() {
 			@Override
@@ -164,14 +179,14 @@ public class CustomerReservations extends JPanel {
 		try {
 			int capacity = (Integer)spinner.getValue();
 			TimeSlot timeSlotChosen = timeSlotMap.get(listOfAvailableTimes.getSelectedItem());
-			
+			String specialNotes = txtSpecialNotesPane.getText();
 			if (timeSlotChosen == null)
 			{
 				throw new NullPointerException();
 			}
 			LocalDate date = ((Date) datePicker.getModel().getValue())
 					.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			Reservation reservation = reservationService.createCustomerReservation(customer,date,timeSlotChosen,capacity );
+			Reservation reservation = reservationService.createCustomerReservation(customer,date,timeSlotChosen,capacity,specialNotes );
 			
 			if (reservation == null)
 			{

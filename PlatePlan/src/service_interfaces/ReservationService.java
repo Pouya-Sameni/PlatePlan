@@ -9,7 +9,7 @@ import dto.TimeSlot;
 
 public interface ReservationService {
 	
-	public Reservation createCustomerReservation(Customer customer, LocalDate date, TimeSlot slot, int cap);
+	public Reservation createCustomerReservation(Customer customer, LocalDate date, TimeSlot slot, int cap, String specialNotes);
 	
 	public List<Reservation> getCustomerReservation(String email);
 

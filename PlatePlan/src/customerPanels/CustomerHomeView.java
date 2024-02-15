@@ -183,7 +183,7 @@ public class CustomerHomeView extends JPanel {
 				}
 			}
 		});
-		btnCancelRes.setBounds(10, 152, 125, 23);
+		btnCancelRes.setBounds(10, 152, 138, 23);
 		currentReservationView.add(btnCancelRes);
 		
 		lblSpecialInstVal = new JLabel("Value");

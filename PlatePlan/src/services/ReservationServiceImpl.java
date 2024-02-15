@@ -36,7 +36,7 @@ public class ReservationServiceImpl implements ReservationService{
 
 
 	@Override
-	public Reservation createCustomerReservation(Customer customer, LocalDate date, TimeSlot slot, int cap) {
+	public Reservation createCustomerReservation(Customer customer, LocalDate date, TimeSlot slot, int cap, String specialNotes) {
 		
 		List<Table> tablesAvailable = serviceUtils.getTablesMatchingResReq(cap);
 		
@@ -45,7 +45,7 @@ public class ReservationServiceImpl implements ReservationService{
 			return null;
 		}
 		Reservation reservation = new Reservation(UUID.randomUUID().toString(),
-				customer.getEmail(), date, slot, "", tablesAvailable.get(0).getId(), cap);
+				customer.getEmail(), date, slot, specialNotes, tablesAvailable.get(0).getId(), cap);
 		
 		if (customer.getReservations() != null)
 		{
