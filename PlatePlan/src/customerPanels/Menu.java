@@ -1,4 +1,4 @@
-package panels;
+package customerPanels;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.JList;
 
 public class Menu extends JPanel{

@@ -21,11 +21,15 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Component;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.List;
 import java.awt.Panel;
 import java.awt.Label;
 import javax.swing.JTable;
 import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.Map;
 import java.beans.PropertyChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -42,7 +46,8 @@ public class CustomerHomeView extends JPanel {
 	private JButton btnMakeReservation;
 	private ReservationService reservationService;
 	private ServiceUtils serviceUtils;
-
+	private JLabel lblSpecialInstVal;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -56,7 +61,7 @@ public class CustomerHomeView extends JPanel {
 		setBackground(new Color(255, 250, 250));
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		//===========================================================================
-
+		Map<String, String> resToIdMap = new HashMap<>();
 		this.reservationService = new ReservationServiceImpl();
 		this.serviceUtils = ServiceUtils.getInstance();
 		btnMakeReservation = new JButton("Reserve Table");
@@ -88,7 +93,6 @@ public class CustomerHomeView extends JPanel {
 		reservationList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Reservation Selected by Customer");
 				String row = (String) reservationList.getSelectedItem();
 				
 				if (row != null && !row.isEmpty() )
@@ -100,6 +104,7 @@ public class CustomerHomeView extends JPanel {
 							lblCapVal.setText(""+reservation.getPartySize());
 							lblWhatTimeVal.setText(reservation.getTime().getFrom().toString());
 							lblWhenVal.setText(reservation.getDate().toString());
+							lblSpecialInstVal.setText(reservation.getSpecialNotes());
 							
 							add(currentReservationView);
 							PlatePlanMain.refreshPage();
@@ -113,6 +118,7 @@ public class CustomerHomeView extends JPanel {
 		
 		for (Reservation reservation: reservationService.getCustomerReservation(customer.getEmail()))
 		{
+			resToIdMap.put(convertResToText(reservation), reservation.getId());
 			reservationList.add(convertResToText(reservation));
 		}
 		
@@ -142,7 +148,7 @@ public class CustomerHomeView extends JPanel {
 		
 		Label lblCap_1 = new Label("Special Instructions:");
 		lblCap_1.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblCap_1.setBounds(10, 101, 136, 22);
+		lblCap_1.setBounds(10, 101, 125, 30);
 		currentReservationView.add(lblCap_1);
 		
 		lblWhenVal = new Label("When");
@@ -159,6 +165,31 @@ public class CustomerHomeView extends JPanel {
 		lblCapVal.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblCapVal.setBounds(344, 38, 108, 22);
 		currentReservationView.add(lblCapVal);
+		
+		JButton btnCancelRes = new JButton("Cancel Reservation");
+		btnCancelRes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String row = (String) reservationList.getSelectedItem();
+
+				
+				if (reservationService.cancelReservation(resToIdMap.get(row)))
+				{
+					PlatePlanMain.switchPanels(new CustomerHomeView(customer));
+				}else {
+					JOptionPane.showMessageDialog(null,
+				            "Could not cancel reservation with ID " + resToIdMap.get(row), // Message to display
+				            "Error", // Title of the dialog
+				            JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnCancelRes.setBounds(10, 152, 125, 23);
+		currentReservationView.add(btnCancelRes);
+		
+		lblSpecialInstVal = new JLabel("Value");
+		lblSpecialInstVal.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblSpecialInstVal.setBounds(146, 101, 306, 30);
+		currentReservationView.add(lblSpecialInstVal);
 		
 		JLabel lblUpcomingRes = new JLabel("Upcoming Reservations");
 		lblUpcomingRes.setFont(new Font("Tahoma", Font.PLAIN, 16));

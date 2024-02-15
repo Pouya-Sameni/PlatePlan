@@ -13,6 +13,7 @@ public interface ReservationService {
 	
 	public List<Reservation> getCustomerReservation(String email);
 
+	public boolean cancelReservation (String reservationId);
 	
 	
 	

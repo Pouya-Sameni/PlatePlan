@@ -36,4 +36,7 @@ public interface DataBase {
 	public List<Server> getAllServers();
 	
 	public boolean deleteTable (String id);
+	
+	public boolean deleteReservation (String id);
+
 }

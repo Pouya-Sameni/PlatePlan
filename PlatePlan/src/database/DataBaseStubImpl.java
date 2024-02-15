@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 import javax.security.auth.login.AccountNotFoundException;
@@ -44,6 +45,17 @@ public class DataBaseStubImpl implements DataBase {
         	{
         		Table table = (Table) object;
         		StubDataBaseRecords.tables.add(table);
+        	}
+        	else if (tableName.equals(SQLTables.ACCOUNTS_TABLE))
+        	{
+        		Customer customer = (Customer) object;
+        		try {
+        			getCustomerAccount(customer.getEmail());
+        			return false;
+        		}catch (Exception e) {
+					StubDataBaseRecords.customers.add(customer);
+        			
+				}
         	}
     		
             System.out.println("Inserting record into " + tableName + ": " + object.toString());
@@ -156,6 +168,21 @@ public class DataBaseStubImpl implements DataBase {
 			if (table.getId().equals(id))
 			{
 				StubDataBaseRecords.tables.remove(table);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean deleteReservation(String id) {
+		List<Reservation> reservations = this.getAllReservations();
+		for (int i = 0; i < reservations.size(); i++)
+		{
+			if (reservations.get(i).getId().equals(id))
+			{
+				reservations.remove(i);
 				return true;
 			}
 		}

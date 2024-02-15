@@ -22,8 +22,12 @@ public class AccountsServiceImpl implements AccountService {
     }
     
     
-	public Customer registerAccount(String firstName, String lastName, String email, String password) {
-		
+	public Customer registerAccount(String email, String firstName, String lastName, String password) {
+		Customer customer = new Customer(email, firstName, lastName, password, new ArrayList<>());
+		if (db.insertRecord(SQLTables.ACCOUNTS_TABLE, customer))
+		{
+			return customer;
+		}
 		return null;
 	}
 

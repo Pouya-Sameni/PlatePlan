@@ -84,5 +84,11 @@ public class ReservationServiceImpl implements ReservationService{
 		return null;
 	}
 
+
+	@Override
+	public boolean cancelReservation(String reservationId) {
+		return db.deleteReservation(reservationId);
+	}
+
     // Other service methods would go here
 }

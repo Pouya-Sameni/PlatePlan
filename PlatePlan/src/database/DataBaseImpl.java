@@ -176,4 +176,10 @@ public class DataBaseImpl implements DataBase {
 		return false;
 	}
 
+	@Override
+	public boolean deleteReservation(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
