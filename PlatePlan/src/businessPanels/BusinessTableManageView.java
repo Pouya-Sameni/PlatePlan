@@ -214,7 +214,7 @@ public class BusinessTableManageView extends JPanel {
 				PlatePlanMain.switchPanels(new BusinessHomeView(business));
 			}
 		});
-		btnBack.setBounds(1001, 11, 89, 23);
+		btnBack.setBounds(988, 11, 89, 23);
 		add(btnBack);
 
 	}

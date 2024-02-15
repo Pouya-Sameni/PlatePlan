@@ -182,7 +182,7 @@ public class CustomerReservations extends JPanel {
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			JOptionPane.showMessageDialog(this, "Error submitting reservation: " + ex.getMessage(), "Error",
+			JOptionPane.showMessageDialog(this, "Error submitting reservation", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
